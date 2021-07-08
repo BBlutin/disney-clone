@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react"
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 
 function Header() {
@@ -26,59 +27,61 @@ function Header() {
 
     return (
         <Nav>
-            <Logo src="/images/logo.svg" />
+            <Link to="/">
+                <Logo src="/images/logo.svg" />
+            </Link>
             <NavMenu>
-                <a>
+                <Link to="/" >
                     <img src="/images/home-icon.svg" />
                     <span>ACCUEIL</span>
-                </a>
-                <a>
+                </Link>
+                <Link href="#" >
                     <img src="/images/search-icon.svg" />
                     <span>RECHERCHE</span>
-                </a>
-                <a>
+                </Link>
+                <Link href="#" >
                     <img src="/images/watchlist-icon.svg" />
                     <span>MA LISTE</span>
-                </a>
-                <a>
+                </Link>
+                <Link href="#" >
                     <img src="/images/original-icon.svg" />
                     <span>ORIGINALS</span>
-                </a>
-                <a>
+                </Link>
+                <Link href="#" >
                     <img src="/images/movie-icon.svg" />
                     <span>FILMS</span>
-                </a>
-                <a>
+                </Link>
+                <Link href="#" >
                     <img src="/images/series-icon.svg" />
                     <span>SERIES</span>
-                </a>
+                </Link>
             </NavMenu>
             <MobileMenu>
-                <a className="icon">
+                <Link to="/" className="icon">
                     <img src="/images/home-icon.svg" />
-                </a>
-                <a className="icon">
+                </Link>
+                <Link className="icon">
                     <img src="/images/search-icon.svg" />
-                </a>
-                <a className="icon">
+                </Link>
+                <Link className="icon">
                     <img src="/images/watchlist-icon.svg" />
-                </a>
+                </Link>
                 <button onClick={onClick}>
                     <img src="/images/more-icon.svg" />
                 </button>
                 <Dropdown ref={dropdownRef} className={isActive ? 'active' : "inactive"}>
-                    <a>
+                    <Link href="#" >
                         <img src="/images/original-icon.svg" />
                         <span>ORIGINALS</span>
-                    </a>
-                    <a>
+                    </Link>
+                    <Link href="#" >
                         <img src="/images/movie-icon.svg" />
                         <span>FILMS</span>
-                    </a>
-                    <a>
+                    </Link>
+                    <Link href="#" >
                         <img src="/images/series-icon.svg" />
                         <span>SERIES</span>
-                    </a>
+                    </Link>
                 </Dropdown>
             </MobileMenu>
             <UserImg src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/D212D63B41B89DAFB26B6137E5911388B5D53DD33F8B5229DD9998D71C30A86E/scale?width=96&format=png" />
@@ -116,6 +119,8 @@ const NavMenu = styled.div`
             align-items: center;
             padding: 0 20px;
             cursor: pointer;
+            text-decoration: none;
+            color: white;
 
             img {
                 height: 20px;
@@ -180,6 +185,8 @@ const Dropdown = styled.div`
         align-items: center;
         margin: 15px 20px 15px 10px;
         cursor: pointer;
+        text-decoration: none;
+        color: white;
 
         img {
             padding-right: 10px;

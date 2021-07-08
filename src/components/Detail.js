@@ -1,44 +1,70 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from "styled-components"
 import Header from './Header'
 
+import { useParams } from 'react-router-dom'
+
+import db from '../firebase'
+
 function Detail() {
+
+    const { id } = useParams();
+    const [ movie, setMovie ] = useState('');
+
+    useEffect(() => {
+        db.collection("movies")
+        .doc(id)
+        .get()
+        .then((doc) => {
+            if (doc.exists) {
+                setMovie(doc.data());
+            } else {
+                //redirect to home page
+            }
+        })
+
+    }, [])
+
     return (
         <Container>
             <Header />
-            <Background>
-                <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/9C5071904A764968A80703D20149CFA14FF0F570E023BB46065419B308260C69/scale?width=1440&aspectRatio=1.78&format=jpeg" alt="" />
+            {movie && (
+            <>
+                <Background>
+                <img src={movie.backgroundImg} alt={movie.title} />
                 <Gradient />
-            </Background>
-            <ImageTitle>
-                <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/2B51D6A65271332D3250717796ECC2B35A50A2A0056881F982C46F5ED93E34D5/scale?width=1440&aspectRatio=1.78" alt="" />
-            </ImageTitle>
-            <SubTitle>
-                2021 - Science-fiction, Fantastique, Action et aventure
-            </SubTitle>
-            <Controls>
-                <PlayButton>
-                    <img src="/images/play-icon-black.png" alt="" />
-                    <span>LECTURE</span>
-                </PlayButton>
-                <TrailerButton>
-                    <span>BANDE-ANNONCE</span>
-                </TrailerButton>
-                <AddButton>
-                    <span>+</span>
-                </AddButton>
-                <GroupButton>
-                    <img 
-                        src="/images/group-icon.png" 
-                        alt="" 
-                        onMouseOver={e => (e.currentTarget.src = '/images/group-icon-black.png')}
-                        onMouseOut={e => (e.currentTarget.src ='/images/group-icon.png')}
-                    />
-                </GroupButton>
-            </Controls>
-            <Resume>
-                Le redoutable méchant Loki (Tom Hiddleston) reprend son rôle de Dieu de la Malice dans "Loki",  la nouvelle série des studios Marvel qui se déroule après "Avengers : Endgame". Kate Herron en est la réalisatrice et Michael Waldron le principal scénariste.
-            </Resume>
+                </Background>
+                <ImageTitle>
+                    <img src={movie.titleImg} alt={movie.title} />
+                </ImageTitle>
+                <SubTitle>
+                    {movie.subTitle}
+                </SubTitle>
+                <Controls>
+                    <PlayButton>
+                        <img src="/images/play-icon-black.png" alt="" />
+                        <span>LECTURE</span>
+                    </PlayButton>
+                    <TrailerButton>
+                        <span>BANDE-ANNONCE</span>
+                    </TrailerButton>
+                    <AddButton>
+                        <span>+</span>
+                    </AddButton>
+                    <GroupButton>
+                        <img 
+                            src="/images/group-icon.png" 
+                            alt="" 
+                            onMouseOver={e => (e.currentTarget.src = '/images/group-icon-black.png')}
+                            onMouseOut={e => (e.currentTarget.src ='/images/group-icon.png')}
+                        />
+                    </GroupButton>
+                </Controls>
+                <Description>
+                    {movie.description}
+                </Description>
+            </>
+            )}
         </Container>
     )
 }
@@ -189,7 +215,7 @@ const AddButton = styled.button`
 const GroupButton = styled(AddButton)`
 `;
 
-const Resume = styled.p`
+const Description = styled.p`
     margin-left: 40px;
     margin-right: 40px;
     margin-top: 28px;

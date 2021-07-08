@@ -1,5 +1,6 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled from 'styled-components'
+import { Link } from "react-router-dom"
 
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"; 
@@ -17,6 +18,7 @@ function Movies() {
         infinite: false,
         slidesToShow: 5,
         slidesToScroll: 5,
+        lazyLoad: true,
         arrows: true,
         autoplay: false,
         cssEase: 'linear',
@@ -48,7 +50,9 @@ function Movies() {
                 { movies && 
                     movies.map((movie) => (
                         <Wrap key={movie.id}>
-                            <img src={movie.cardImg} alt={movie.title} />
+                            <Link to={`detail/${movie.id}`}>
+                                <img src={movie.cardImg} alt={movie.title} />
+                            </Link>
                         </Wrap>
                     ))
                 }
