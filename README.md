@@ -6,9 +6,7 @@
 
 <div align="center">
 
-[![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/pulls)
+[![Status](https://img.shields.io/badge/status-active-success.svg?style=for-the-badge)]() [![GitHub Issues](https://img.shields.io/github/issues/BBlutin/disney-clone?style=for-the-badge)]() [![Forks](https://img.shields.io/github/forks/BBlutin/disney-clone?style=for-the-badge)]() [![Stars](https://img.shields.io/github/stars/BBlutin/disney-clone?style=for-the-badge)]()
 
 </div>
 
