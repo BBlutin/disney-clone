@@ -30,7 +30,7 @@ function Header() {
                 history.push("/login");
             }
         })
-    }, [])
+    }, [dispatch, history])
 
     const signIn = () => {
         auth.signInWithPopup(provider)
@@ -87,54 +87,54 @@ function Header() {
                     </Link>
                     <NavMenu>
                         <Link to="/" >
-                            <img src="/images/home-icon.svg" />
+                            <img src="/images/home-icon.svg" alt="" />
                             <span>ACCUEIL</span>
                         </Link>
                         <Link href="#" >
-                            <img src="/images/search-icon.svg" />
+                            <img src="/images/search-icon.svg" alt="" />
                             <span>RECHERCHE</span>
                         </Link>
                         <Link href="#" >
-                            <img src="/images/watchlist-icon.svg" />
+                            <img src="/images/watchlist-icon.svg" alt="" />
                             <span>MA LISTE</span>
                         </Link>
                         <Link href="#" >
-                            <img src="/images/original-icon.svg" />
+                            <img src="/images/original-icon.svg" alt="" />
                             <span>ORIGINALS</span>
                         </Link>
                         <Link href="#" >
-                            <img src="/images/movie-icon.svg" />
+                            <img src="/images/movie-icon.svg" alt="" />
                             <span>FILMS</span>
                         </Link>
                         <Link href="#" >
-                            <img src="/images/series-icon.svg" />
+                            <img src="/images/series-icon.svg" alt="" />
                             <span>SERIES</span>
                         </Link>
                     </NavMenu>
                     <MobileMenu>
                         <Link to="/" className="icon">
-                            <img src="/images/home-icon.svg" />
+                            <img src="/images/home-icon.svg" alt="" />
                         </Link>
                         <Link className="icon">
-                            <img src="/images/search-icon.svg" />
+                            <img src="/images/search-icon.svg" alt="" />
                         </Link>
                         <Link className="icon">
-                            <img src="/images/watchlist-icon.svg" />
+                            <img src="/images/watchlist-icon.svg" alt="" />
                         </Link>
                         <button onClick={onClick}>
-                            <img src="/images/more-icon.svg" />
+                            <img src="/images/more-icon.svg" alt="" />
                         </button>
                         <Dropdown ref={dropdownRef} className={isActive ? 'active' : "inactive"}>
                             <Link href="#" >
-                                <img src="/images/original-icon.svg" />
+                                <img src="/images/original-icon.svg" alt="" />
                                 <span>ORIGINALS</span>
                             </Link>
                             <Link href="#" >
-                                <img src="/images/movie-icon.svg" />
+                                <img src="/images/movie-icon.svg" alt="" />
                                 <span>FILMS</span>
                             </Link>
                             <Link href="#" >
-                                <img src="/images/series-icon.svg" />
+                                <img src="/images/series-icon.svg" alt="" />
                                 <span>SERIES</span>
                             </Link>
                         </Dropdown>

@@ -23,7 +23,7 @@ function Detail() {
             }
         })
 
-    }, [])
+    }, [id])
 
     return (
         <Container>
