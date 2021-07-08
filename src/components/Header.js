@@ -1,8 +1,58 @@
 import React, { useState, useEffect, useRef } from "react"
-import { Link } from "react-router-dom"
+import { auth, provider } from "../firebase"
+import { Link, useHistory } from "react-router-dom"
 import styled from "styled-components"
 
+import {
+    selectUserName,
+    selectUserPhoto,
+    setUserLogin,
+    setSignOut,
+} from "../features/user/userSlice"
+import { useSelector, useDispatch } from "react-redux"
+
 function Header() {
+
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const userName = useSelector(selectUserName);
+    const userPhoto = useSelector(selectUserPhoto);
+
+    useEffect(() => {
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                dispatch(setUserLogin({
+                    name: user.displayName,
+                    email: user.email,
+                    photo: user.photoURL,
+                }))
+            }
+        })
+        if (!userName) {
+            history.push("/login");
+        }
+    }, [])
+
+    const signIn = () => {
+        auth.signInWithPopup(provider)
+        .then((result) => {
+            let user = result.user;
+            dispatch(setUserLogin({
+                name: user.displayName,
+                email: user.email,
+                photo: user.photoURL,
+            }))
+            history.push("/");
+        })
+    }
+
+    const signOut = () => {
+        auth.signOut()
+        .then(() => {
+            dispatch(setSignOut());
+            history.push("/login");
+        })
+    }
 
     const dropdownRef = useRef(null);
     const [isActive, setIsActive] = useState(false);
@@ -27,64 +77,72 @@ function Header() {
 
     return (
         <Nav>
-            <Link to="/">
-                <Logo src="/images/logo.svg" />
-            </Link>
-            <NavMenu>
-                <Link to="/" >
-                    <img src="/images/home-icon.svg" />
-                    <span>ACCUEIL</span>
-                </Link>
-                <Link href="#" >
-                    <img src="/images/search-icon.svg" />
-                    <span>RECHERCHE</span>
-                </Link>
-                <Link href="#" >
-                    <img src="/images/watchlist-icon.svg" />
-                    <span>MA LISTE</span>
-                </Link>
-                <Link href="#" >
-                    <img src="/images/original-icon.svg" />
-                    <span>ORIGINALS</span>
-                </Link>
-                <Link href="#" >
-                    <img src="/images/movie-icon.svg" />
-                    <span>FILMS</span>
-                </Link>
-                <Link href="#" >
-                    <img src="/images/series-icon.svg" />
-                    <span>SERIES</span>
-                </Link>
-            </NavMenu>
-            <MobileMenu>
-                <Link to="/" className="icon">
-                    <img src="/images/home-icon.svg" />
-                </Link>
-                <Link className="icon">
-                    <img src="/images/search-icon.svg" />
-                </Link>
-                <Link className="icon">
-                    <img src="/images/watchlist-icon.svg" />
-                </Link>
-                <button onClick={onClick}>
-                    <img src="/images/more-icon.svg" />
-                </button>
-                <Dropdown ref={dropdownRef} className={isActive ? 'active' : "inactive"}>
-                    <Link href="#" >
-                        <img src="/images/original-icon.svg" />
-                        <span>ORIGINALS</span>
+            { !userName ? (
+                <LoginWrap>
+                    <Login onClick={signIn}>S'IDENTIFIER</Login>
+                </LoginWrap>
+            ) : 
+                <>
+                    <Link to="/">
+                        <Logo src="/images/logo.svg" />
                     </Link>
-                    <Link href="#" >
-                        <img src="/images/movie-icon.svg" />
-                        <span>FILMS</span>
-                    </Link>
-                    <Link href="#" >
-                        <img src="/images/series-icon.svg" />
-                        <span>SERIES</span>
-                    </Link>
-                </Dropdown>
-            </MobileMenu>
-            <UserImg src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/D212D63B41B89DAFB26B6137E5911388B5D53DD33F8B5229DD9998D71C30A86E/scale?width=96&format=png" />
+                    <NavMenu>
+                        <Link to="/" >
+                            <img src="/images/home-icon.svg" />
+                            <span>ACCUEIL</span>
+                        </Link>
+                        <Link href="#" >
+                            <img src="/images/search-icon.svg" />
+                            <span>RECHERCHE</span>
+                        </Link>
+                        <Link href="#" >
+                            <img src="/images/watchlist-icon.svg" />
+                            <span>MA LISTE</span>
+                        </Link>
+                        <Link href="#" >
+                            <img src="/images/original-icon.svg" />
+                            <span>ORIGINALS</span>
+                        </Link>
+                        <Link href="#" >
+                            <img src="/images/movie-icon.svg" />
+                            <span>FILMS</span>
+                        </Link>
+                        <Link href="#" >
+                            <img src="/images/series-icon.svg" />
+                            <span>SERIES</span>
+                        </Link>
+                    </NavMenu>
+                    <MobileMenu>
+                        <Link to="/" className="icon">
+                            <img src="/images/home-icon.svg" />
+                        </Link>
+                        <Link className="icon">
+                            <img src="/images/search-icon.svg" />
+                        </Link>
+                        <Link className="icon">
+                            <img src="/images/watchlist-icon.svg" />
+                        </Link>
+                        <button onClick={onClick}>
+                            <img src="/images/more-icon.svg" />
+                        </button>
+                        <Dropdown ref={dropdownRef} className={isActive ? 'active' : "inactive"}>
+                            <Link href="#" >
+                                <img src="/images/original-icon.svg" />
+                                <span>ORIGINALS</span>
+                            </Link>
+                            <Link href="#" >
+                                <img src="/images/movie-icon.svg" />
+                                <span>FILMS</span>
+                            </Link>
+                            <Link href="#" >
+                                <img src="/images/series-icon.svg" />
+                                <span>SERIES</span>
+                            </Link>
+                        </Dropdown>
+                    </MobileMenu>
+                    <UserImg onClick={signOut} src={userPhoto} />
+                </>
+            }
         </Nav>
     )
 }
@@ -293,3 +351,25 @@ const UserImg = styled.img`
     border-radius: 50%;
     cursor: pointer;
 `
+const LoginWrap = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const Login = styled.div`
+    border: 1px solid #f9f9f9;
+    padding: 8px 16px;
+    border-radius: 4px;
+    letter-spacing: 1.5px;
+    background-color: rgba(0, 0, 0, 0.6);
+
+    cursor: pointer;
+    transition: all 0.2s ease 0s;
+
+    &:hover {
+        background-color: #f9f9f9;
+        color: #000;
+        border-color: transparent;
+    }
+`;

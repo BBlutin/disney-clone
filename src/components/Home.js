@@ -40,6 +40,8 @@ const Container = styled.main`
     position: relative;
     overflow-x: hidden;
 
+    padding-bottom: 112px;
+
     &:before {
         background: url("/images/home-background.png") center center / cover no-repeat fixed;
         content: "";

@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import Header from './Header';
+import { useHistory } from "react-router-dom"
+
+import { selectUserName } from "../features/user/userSlice"
+import { useSelector } from "react-redux"
 
 function Login() {
+
+    const userName = useSelector(selectUserName);
+    const history = useHistory();
+
+    useEffect(() => {
+        if (userName) {
+            history.push("/");
+        }
+    }, [])
+
     return (
         <Container>
-            <Nav>
-                <button>S'IDENTIFIER</button>
-            </Nav>
+            <Header />
             <Wrap>
                 <img className="logo" src="/images/logo.svg" alt="" />
                 <h1>Tout ce que vous imaginez<br/> et encore +</h1>
