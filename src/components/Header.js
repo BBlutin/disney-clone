@@ -30,7 +30,7 @@ function Header() {
                 history.push("/login");
             }
         })
-    }, [dispatch, history])
+    })
 
     const signIn = () => {
         auth.signInWithPopup(provider)

@@ -15,7 +15,7 @@ function Login() {
         if (userName) {
             history.push("/");
         }
-    }, [userName, history])
+    })
 
     return (
         <Container>
