@@ -26,11 +26,10 @@ function Header() {
                     email: user.email,
                     photo: user.photoURL,
                 }))
+            } else {
+                history.push("/login");
             }
         })
-        if (!userName) {
-            history.push("/login");
-        }
     }, [])
 
     const signIn = () => {

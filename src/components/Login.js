@@ -70,36 +70,9 @@ const Container = styled.div`
   }
 `;
 
-const Nav = styled.div`
-  display: flex;
-  justify-content: flex-end;
-
-  button {
-        margin-top: 15px;
-        margin-right: 25px;
-        padding: 8px 16px;
-
-        background-color: rgba(0, 0, 0, 0.7);
-        color: white;
-        font-size: 15px;
-        border: 2px solid white;
-        border-radius: 5px;
-
-        letter-spacing: 1.6px;
-
-        cursor: pointer;
-        transition: all 150ms ease-in-out;
-
-        &:hover {
-            color: black;
-            background-color: white;
-        }
-  }
-`;
-
 const Wrap = styled.div`
     margin-left: 30px;
-    height: calc(100vh - 53px);
+    height: calc(100vh - 75px);
     max-width: 680px;
     display: flex;
     flex-direction: column;
