@@ -25,18 +25,15 @@
 - [Built Using](#built_using)
 - [Authors](#authors)
 
-
 ## 🧐 About <a name = "about"></a>
 
 This project got a functionnal auth system and grad the films from the database. All was made using ReactJS, Redux, Firebase and Styled Components.
-
 
 ## 👀️ Preview <a name = "preview"></a>
 
 <p align="center">
  <img src="https://cdn.discordapp.com/attachments/430589989038850049/862709805466124328/disney_preview.png" alt="Project preview">
 </p>
-
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
@@ -54,10 +51,9 @@ To start the developpement server :
 
 `npm start`
 
-
 To start the production server :
 
-`npm build`
+`npm run build`
 
 ## ⛏️ Built Using<a name = "built_using"></a>
 
